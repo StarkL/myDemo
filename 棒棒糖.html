@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	#bb{
+		width:300px;
+		height:300px;
+		border-radius:150px;
+		background:-webkit-repeating-radial-gradient(center center,circle contain,#fff,red,#fff 20%);
+		position:relative;
+		z-index:2;
+	}
+	#t{
+		position:absolute;
+		top:296px;
+		left:138px;
+		width:20px;
+		height:200px;
+		background:repeating-linear-gradient(to left,green,white 100%);
+	}
+	</style>
+</head>
+<body>
+	<div id="bb">
+		<div id="t"></div>
+	</div>
+</body>
+</html>

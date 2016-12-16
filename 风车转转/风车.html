@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	img{
+		/*-webkit-transform-origin:110px 101px;*/
+		/*-webkit-transfrom-origin:51.4% 45.9%;*/
+		-webkit-transform-origin:50% 50%;
+		transform:rotate(5deg);
+	}
+	</style>
+</head>
+<body>
+	<img src="风车.png" alt="">
+	<script>
+var img = document.getElementsByTagName('img')[0];
+var a = 0;
+setInterval(function(){
+	a+=6;
+	if(a >= 360) {
+		a = 0;
+	}
+	img.style.transform = 'rotate('+a+'deg)';
+},20)
+	</script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<canvas id="clock" width="500" height="500">请升级浏览器</canvas>
+
+	<script>
+	var clock = document.getElementById('clock');
+	var con = clock.getContext('2d');
+
+	function drawClock() {
+		// 动态前清除画布
+		con.clearRect(0,0,500,500);
+		var now = new Date();
+		var seconds = now.getSeconds();
+		var minutes = now.getMinutes();
+		var hours = now.getHours();
+		//小时需要获取浮点类型（小时+分钟转化成的小时数）
+		hours = hours + minutes/60;
+		// 将获取的24小时制转换为12小时制
+		hours = hours>12?hours-12:hours;
+
+		// 表盘颜色
+		con.lineWidth = 10;
+		con.strokeStyle = 'black';
+		con.beginPath();
+		// 画出圆弧表盘
+		// 以250，250为圆心，200的半径，从3点钟开始画，到360度为终点，逆时针画
+		con.arc(250,250,200,0,360,false);
+		con.closePath();
+		con.stroke();
+
+		// 表盘刻度
+
+			// 分刻度
+			for(var j = 0; j < 60;j++){
+				con.save();
+				con.lineWidth = 2;
+				con.strokeStyle = '#333';
+				con.translate(250,250);
+				con.rotate(j*6*Math.PI/180);
+				con.beginPath();
+				con.moveTo(0,-180);
+				con.lineTo(0,-190);
+				con.closePath();
+				con.stroke();
+				con.restore();
+			}
+
+			// 时刻度
+			for(var i = 0; i < 12; i++){
+				con.save();
+				con.lineWidth = 5;
+				con.strokeStyle = 'black';
+				// 设置0,0起点
+				con.translate(250,250);
+				// 以起点为中心，设置旋转多少度显示一个刻度
+
+				con.rotate(i * 30 * Math.PI/180);
+				con.beginPath();
+				// 表盘为200半径，
+				con.moveTo(0,-180);
+				con.lineTo(0,-190);
+				con.closePath();
+				con.stroke();
+				con.restore();
+			}
+
+			// 时针
+			con.save();
+			con.lineWidth = 7;
+			con.strokeStyle = 'black';
+			con.translate(250,250);
+			con.rotate(hours*30*Math.PI/180);
+			con.beginPath();
+			con.moveTo(0,10);
+			con.lineTo(0,-140);
+			con.closePath();
+			con.lineCap = 'round';
+			con.stroke();
+			con.restore();
+
+			// 分针
+			con.save();
+			con.lineWidth = 4;
+			con.strokeStyle = 'black';
+			con.translate(250,250);
+			con.rotate(minutes*6*Math.PI/180);
+			con.beginPath();
+			con.moveTo(0,15);
+			con.lineTo(0,-160);
+			con.closePath();
+			con.stroke();
+			con.restore();
+
+			//秒针
+			con.save();
+			con.lineWidth = 2;
+			con.strokeStyle = 'red';
+			con.translate(250,250);
+			con.rotate(seconds*6*Math.PI/180);
+			con.beginPath();
+			con.moveTo(0,20);
+			con.lineTo(0,-165);
+			con.closePath();
+			con.stroke();
+
+			// 美化中心点
+			con.strokeStyle = 'red';
+			con.beginPath();
+			con.arc(0,0,5,0,360,false);
+			con.closePath();
+			con.fillStyle = 'silver';
+			con.fill();
+			con.stroke();
+
+			con.beginPath();
+			con.arc(0,-150,5,0,360,false);
+			con.closePath();
+			con.fillStyle = 'yellow';
+			con.fill();
+			con.stroke();
+			con.restore();
+
+
+	}
+	drawClock();
+	setInterval(drawClock,1000);
+	</script>
+</body>
+</html>

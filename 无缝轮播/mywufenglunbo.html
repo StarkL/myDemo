@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>无缝轮播图</title>
+	<style>
+		.box{
+			width:800px;
+			height:260px;
+			margin:150px auto;
+			overflow:hidden;
+			position:relative;
+		}
+		.box p{
+			text-align:center;
+		}
+		.picBox2{
+			margin:0 auto;
+			padding:0;
+			list-style:none;
+			width:1500px;
+		}
+		.picBox2:hover{
+			cursor:pointer;
+		}
+		.picBox2 li{
+			float:left;
+		}
+		.picBox2 img{
+			width:200px;
+			height:240px;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<p>图片轮播：无缝轮播</p>
+		<ul class="picBox2">
+			<li>
+				<img src="images/1.jpg" alt="">
+			</li>
+			<li>
+				<img src="images/2.jpg" alt="">
+			</li>
+			<li>
+				<img src="images/3.jpg" alt="">
+			</li>
+			<li>
+				<img src="images/4.jpg" alt="">
+			</li>
+			<li>
+				<img src="images/5.jpg" alt="">
+			</li>
+			</li>
+		</ul>
+	</div>
+
+	<script src="jquery-1.8.3.min.js"></script>
+<script>
+	$(function(){
+		function roll(){
+			$('.picBox2').animate({marginLeft:'-200px'},1000,'linear',function(){
+				$(this).css({marginLeft:'0px'});
+				$('.picBox2 li:first').remove().clone(true).appendTo('.picBox2');
+			})
+		}
+		var startRoll = setInterval(roll,2000);
+
+		$('.picBox2').hover(function(){
+			clearInterval(startRoll);
+		},function(){
+			startRoll = setInterval(roll,2000);
+		})
+	})
+</script>
+</body>
+</html>
